@@ -28,12 +28,9 @@ app.get("/:room", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-    socket.on("join-room", (roomId, userId, userName) => {
-        socket.join(roomId);
-        socket.on("message", (message) => {
-            io.to(roomId).emit("createMessage", message, userName);
-        });
+    socket.on("message", (message) => {
+        io.emit("createMessage", message);
     });
 });
 
-server.listen(process.env.PORT || 3030);
+server.listen(3030);
